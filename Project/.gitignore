@@ -62,3 +62,6 @@
 
 # Add University waveform files as well
 !*.vwf
+
+# Add ROM file
+!ROM.hex

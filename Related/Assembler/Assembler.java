@@ -72,10 +72,14 @@ public class Assembler {
 				while(sc.hasNextLine()) {
                     String line = sc.nextLine();
                     line = line.toUpperCase();
-                    String parsed = parseLine(line, lineNumber);
+                    if(line.trim().length() != 0){
+                        if(line.trim().charAt(0) != ';') {
+                            String parsed = parseLine(line, lineNumber);
 
-                    executable.append(toHex(parsed).toUpperCase() + "\n");
-                    lineNumber++;
+                            executable.append(toHex(parsed).toUpperCase() + "\n");
+                            lineNumber++;
+                        }
+                    }
                 }
                 sc.close();
 			} else {
@@ -90,6 +94,7 @@ public class Assembler {
                 outputFile.createNewFile();
             } 
             FileWriter fw = new FileWriter(outputFile, false);
+            /* Not needed
             String fileFormat =
             "DEPTH = 4096;                   -- The size of memory in words\n" +
             "WIDTH = 32;                    -- The size of data in bits\n" +
@@ -100,6 +105,8 @@ public class Assembler {
             "-- memory address : data\n" +
             "%s" +
             "END;\n";
+            
+
 
             String lines[] = executable.toString().split("\n");
             StringBuilder content = new StringBuilder();
@@ -109,6 +116,10 @@ public class Assembler {
             }
 
             fw.write(String.format(fileFormat, content));
+            */
+
+            fw.write(executable.toString());
+
             fw.close();
 		} catch (Exception e) {
 			e.printStackTrace();
