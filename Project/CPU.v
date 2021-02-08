@@ -86,7 +86,7 @@ module CPU(
 	// Create inner CPU reset signal:
 	wire reset;
 	
-	assign reset = res & RES;
+	assign reset = res | RES;
 	
 	
 	// ALU result will be connected to this wire:
@@ -156,7 +156,7 @@ module CPU(
 	// Setting up Comparison registers:
 	wire [5:0] regCOMP;
 	Register6Bit(
-		{lt, lt & eq, ~eq, eq, eq & gt, gt},
+		{lt, lt | eq, ~eq, eq, eq | gt, gt},
 		~clk,
 		COMP,
 		reset,
@@ -165,18 +165,17 @@ module CPU(
 	
 	
 	// Setting up data (RAM) connections:
-	assign selData = LD & STR;
+	assign selData = LD | STR;
 	MUX2x12(Ry[11:0], immediateAddr, immediate, selData, dataAddr);
 	
 	assign ldData = LD;
 	assign clrData = reset;
 	
-	assign data = STR ? Rx : data; // Simulates the tristate buffer between RAM.
+	assign data = STR ? Rx : 16'bxxxx; // Simulates the tristate buffer between RAM.
 	
 	
 	// Selecting jump conditions:
 	wire jumpPC;
-	wire selectedCondition;
 	MUX16x1(
 		{
 			~CPSR[4],
@@ -197,18 +196,15 @@ module CPU(
 			regCOMP[0],
 		},
 		condition,
-		1'b1,
-		selectedCondition
+		JUMP,
+		jumpPC
 	);
-	
-	assign jumpPC = JUMP ? selectedCondition : 1'b0;
 	
 	
 	// Setting up Program Counter:
-	wire [11:0] addrPC0;
-	MUX2x12(Ry[11:0], immediateAddr, immediate, 1'b1, addrPC0);
 	wire [11:0] addrPC;
-	assign addrPC = JUMP ? addrPC0 : 12'h000;
+	MUX2x12(Ry[11:0], immediateAddr, immediate, JUMP, addrPC);
+	
 	
 	ProgramCounter(
 		addrPC,

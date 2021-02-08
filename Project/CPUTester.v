@@ -52,6 +52,8 @@ module CPUTester(
 		ROMdata <= ROMsel ? ROM[ROMaddr] : 32'hxxxxxxxx;
 	end
 	
+	// Digital Tube value register:
+	reg [15:0] hex4;
 	
 	// Define RAM functionality:
 	reg [15:0] RAMdataOut;
@@ -69,18 +71,31 @@ module CPUTester(
 		end
 		else
 		begin
-			// Bind buttons to RAM:
-			RAM[0] <= {14'b11111111111111, btn};
-	
 			if(RAMsel)
 			begin
 				if(RAMld)
 				begin
-					RAMdataOut <= RAM[RAMaddr];
+					if(RAMaddr == 12'd0)
+					begin
+						// Bind buttons to RAM:
+						RAMdataOut <= {14'b11111111111111, btn};
+					end
+					else
+					begin
+						RAMdataOut <= RAM[RAMaddr];
+					end
 				end
 				else
 				begin
-					RAM[RAMaddr] <= RAMdata;
+					if(RAMaddr == 12'd1)
+					begin
+						// Bind RAM[1] as digital tube:
+						hex4 <= RAMdata;
+					end
+					else
+					begin
+						RAM[RAMaddr] <= RAMdata;
+					end
 				end
 			end
 			else
@@ -148,7 +163,7 @@ module CPUTester(
 		if(counter == 3'b100)
 		begin
 			dig <= 4'b0111;
-			hexSel <= RAM[1]; // set RAM[1] as digital tube
+			hexSel <= hex4;
 			counter <= 3'b000;
 		end
 		else

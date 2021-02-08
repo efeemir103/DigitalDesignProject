@@ -10,6 +10,6 @@ module DEMUX1x2(
 	assign w[0] = ~sel & data;
 	assign w[1] = sel & data;
 	
-	assign out = en ? w : 2'bZZ;
+	assign out = en ? w : 2'b00;
 
 endmodule

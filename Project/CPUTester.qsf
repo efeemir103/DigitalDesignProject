@@ -43,7 +43,6 @@ set_global_assignment -name TOP_LEVEL_ENTITY CPUTester
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "02:46:10  FEBRUARY 08, 2021"
 set_global_assignment -name LAST_QUARTUS_VERSION "20.1.0 Lite Edition"
-set_global_assignment -name VERILOG_FILE CPU.v
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
@@ -56,7 +55,6 @@ set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_symbol
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_signal_integrity
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
-set_global_assignment -name VERILOG_FILE CPUTester.v
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
@@ -77,5 +75,41 @@ set_location_assignment PIN_23 -to clk
 set_location_assignment PIN_89 -to enable
 set_location_assignment PIN_91 -to btn[0]
 set_location_assignment PIN_90 -to btn[1]
+set_global_assignment -name VERILOG_FILE FullAdder.v
+set_global_assignment -name VERILOG_FILE DEMUX1x16.v
+set_global_assignment -name VERILOG_FILE DEMUX1x8.v
+set_global_assignment -name VERILOG_FILE DEMUX1x4.v
+set_global_assignment -name VERILOG_FILE DEMUX1x2.v
+set_global_assignment -name VERILOG_FILE Counter12Bit.v
+set_global_assignment -name VERILOG_FILE Comparator16Bit.v
+set_global_assignment -name VERILOG_FILE OddParity16Bit.v
+set_global_assignment -name VERILOG_FILE Negator16Bit.v
+set_global_assignment -name VERILOG_FILE MUX16x16.v
+set_global_assignment -name VERILOG_FILE MUX16x1.v
+set_global_assignment -name VERILOG_FILE MUX8x1.v
+set_global_assignment -name VERILOG_FILE MUX4x1.v
+set_global_assignment -name VERILOG_FILE MUX2x16.v
+set_global_assignment -name VERILOG_FILE MUX2x12.v
+set_global_assignment -name VERILOG_FILE MUX2x4.v
+set_global_assignment -name VERILOG_FILE MUX2x1.v
+set_global_assignment -name VERILOG_FILE LogicalShiftRight16Bit.v
+set_global_assignment -name VERILOG_FILE RegisterFile.v
+set_global_assignment -name VERILOG_FILE Register16Bit.v
+set_global_assignment -name VERILOG_FILE Register12Bit.v
+set_global_assignment -name VERILOG_FILE Register6Bit.v
+set_global_assignment -name VERILOG_FILE Register5Bit.v
+set_global_assignment -name VERILOG_FILE ProgramCounter.v
+set_global_assignment -name VERILOG_FILE Subtractor16Bit.v
+set_global_assignment -name VERILOG_FILE ShiftLeft16Bit.v
+set_global_assignment -name VERILOG_FILE Comparator2Bit.v
+set_global_assignment -name VERILOG_FILE CircularShiftRight16Bit.v
+set_global_assignment -name VERILOG_FILE CircularShiftLeft16Bit.v
+set_global_assignment -name VERILOG_FILE ArithmeticShiftRight16Bit.v
+set_global_assignment -name VERILOG_FILE ALU16Bit.v
+set_global_assignment -name VERILOG_FILE Adder16Bit.v
+set_global_assignment -name VERILOG_FILE CPU.v
+set_global_assignment -name VERILOG_FILE CPUTester.v
 set_global_assignment -name VECTOR_WAVEFORM_FILE CPUTester.vwf
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

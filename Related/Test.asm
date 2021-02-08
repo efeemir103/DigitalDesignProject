@@ -3,6 +3,21 @@ MOV R2, 10
 ADD R2, R2, R1
 STR R2, 1
 
+MOV R5, 0
+
+;1ms * 100 = 100ms
+
+MOV R6, 0
+;Wait for 50000 NOP's = 1ms
+NOP
+ADD R6, 1
+CMP R6, 50000
+JE 5
+
+ADD R5, 1
+CMP R5, 100
+JL 4
+
 ;loop
 MOV R3, 0
 MOV R4, 0

@@ -90,7 +90,7 @@ module ALU16Bit(
 	OddParity16Bit(result, flags[4]); // Parity
 	
 	// Add tri-state buffer at end
-	assign Y = enable ? result : 16'bZZZZZZZZZZZZZZZZ;
-	assign status = enable ? flags : 5'bZZZZZ;
+	assign Y = enable ? result : 16'b0000000000000000;
+	assign status = enable ? flags : 5'b00000;
 	
 endmodule

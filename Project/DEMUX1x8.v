@@ -13,6 +13,6 @@ module DEMUX1x8(
 	DEMUX1x4(w0[0], sel[1:0], 1'b1, w1[3:0]);
 	DEMUX1x4(w0[1], sel[1:0], 1'b1, w1[7:4]);
 	
-	assign out = en ? w1 : 8'bZZZZZZZZ;
+	assign out = en ? w1 : 8'b00000000;
 
 endmodule
