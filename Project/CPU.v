@@ -10,14 +10,14 @@ module CPU(
 	
 	// Data load/str pins (RAM)
 	output [11:0] dataAddr,
-	inout [15:0] data,
+	input [15:0] dataIn,
+	output [15:0] dataOut,
 	output selData,
 	output ldData,
 	output clrData
 );
 
 	// DECODE THE RECEIVED INSTRUCTION:
-	
 	wire [1:0] opSelect1;
 	wire [1:0] opSelect2;
 	wire [3:0] ALUOpcode;
@@ -97,13 +97,14 @@ module CPU(
 	wire [15:0] Rz0;
 	MUX2x16(Y, immediateValue, immediate, enable, Rz0);
 	wire [15:0] Rz; // Read register
-	MUX2x16(Rz0, data, immediate, enable, Rz);
+	MUX2x16(Rz0, dataIn, immediate, enable, Rz);
 	
 	wire [3:0] xSelected;
 	MUX2x4(x, z, STR, enable, xSelected);
 	
 	wire [15:0] Rx; // A input for ALU/Comparator
 	wire [15:0] Ry; // B input for ALU/Comparator
+	
 	RegisterFile(
 		regWr,
 		enable,
@@ -171,29 +172,28 @@ module CPU(
 	assign ldData = LD;
 	assign clrData = reset;
 	
-	assign data = STR ? Rx : 16'bxxxx; // Simulates the tristate buffer between RAM.
-	
+	assign dataOut = Rx;
 	
 	// Selecting jump conditions:
 	wire jumpPC;
 	MUX16x1(
 		{
-			~CPSR[4],
-			~CPSR[3],
-			~CPSR[2],
-			~CPSR[1],
-			~CPSR[0],
-			CPSR[4],
-			CPSR[3],
-			CPSR[2],
-			CPSR[1],
-			CPSR[0],
-			regCOMP[5],
-			regCOMP[4],
-			regCOMP[3],
-			regCOMP[2],
-			regCOMP[1],
-			regCOMP[0],
+			~CPSR[4], // JNP
+			~CPSR[3], // JNO
+			~CPSR[2], // JNN
+			~CPSR[1], // JNZ
+			~CPSR[0], // JNC
+			CPSR[4], // JP
+			CPSR[3], // JO
+			CPSR[2], // JN
+			CPSR[1], // JZ
+			CPSR[0], // JC
+			regCOMP[5], // JL
+			regCOMP[4], // JLE
+			regCOMP[3], // JNE
+			regCOMP[2], // JE
+			regCOMP[1], // JGE
+			regCOMP[0], // JG
 		},
 		condition,
 		JUMP,

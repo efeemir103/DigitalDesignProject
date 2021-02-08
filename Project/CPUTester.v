@@ -7,15 +7,16 @@ module CPUTester(
 	output [7:0] seg
 );
 
-	// ROM:
+	// Block ROM:
 	wire [11:0] ROMaddr;
 	reg [31:0] ROMdata;
 	wire ROMsel; // cs
 	
 	
-	// RAM:
+	// Block RAM:
 	wire [11:0] RAMaddr;
-	wire [15:0] RAMdata;
+	wire [15:0] RAMdataIn;
+	reg [15:0] RAMdataOut;
 	wire RAMsel; // cs
 	wire RAMld; // ~we
 	wire RAMclr;
@@ -33,7 +34,8 @@ module CPUTester(
 		
 		// Data load/str pins (RAM)
 		RAMaddr,
-		RAMdata,
+		RAMdataOut,
+		RAMdataIn,
 		RAMsel,
 		RAMld,
 		RAMclr
@@ -41,7 +43,7 @@ module CPUTester(
 	
 	
 	// Define ROM functionality:
-	reg [31:0] ROM [4095:0];
+	reg [31:0] ROM [63:0];
 	
 	initial begin
 		$readmemh("ROM.hex", ROM);
@@ -49,22 +51,21 @@ module CPUTester(
 	
 	always @(posedge clk)
 	begin
-		ROMdata <= ROMsel ? ROM[ROMaddr] : 32'hxxxxxxxx;
+		ROMdata <= ROMsel ? ROM[ROMaddr[7:0]] : 32'h00000000;
 	end
 	
 	// Digital Tube value register:
 	reg [15:0] hex4;
 	
 	// Define RAM functionality:
-	reg [15:0] RAMdataOut;
-	reg [15:0] RAM [4095:0];
+	reg [15:0] RAM [63:0];
 	
 	integer i;
 	always @(posedge clk or posedge RAMclr)
 	begin
 		if(RAMclr == 1'b1)
 		begin
-			for(i = 0; i < 4096; i = i + 1) 
+			for(i = 0; i < 64; i = i + 1) 
 			begin
 				RAM[i] <= 16'b0000;
 			end
@@ -78,7 +79,7 @@ module CPUTester(
 					if(RAMaddr == 12'd0)
 					begin
 						// Bind buttons to RAM:
-						RAMdataOut <= {14'b11111111111111, btn};
+						RAMdataOut <= {14'b00000000000000, ~btn};
 					end
 					else
 					begin
@@ -90,22 +91,20 @@ module CPUTester(
 					if(RAMaddr == 12'd1)
 					begin
 						// Bind RAM[1] as digital tube:
-						hex4 <= RAMdata;
+						hex4 <= RAMdataIn;
 					end
 					else
 					begin
-						RAM[RAMaddr] <= RAMdata;
+						RAM[RAMaddr] <= RAMdataIn;
 					end
 				end
 			end
 			else
 			begin
-				RAMdataOut <= 16'hxxxx;
+				RAMdataOut <= 16'h0000;
 			end
 		end
 	end
-	
-	assign RAMdata = RAMld & RAMsel ? RAMdataOut : 16'hzzzz;
 	
 	
 	// Now bind digital tube to RAM:
