@@ -193,7 +193,7 @@ module CPU(
 			regCOMP[3], // JNE
 			regCOMP[2], // JE
 			regCOMP[1], // JGE
-			regCOMP[0], // JG
+			regCOMP[0] // JG
 		},
 		condition,
 		JUMP,
