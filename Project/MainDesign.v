@@ -84,6 +84,10 @@ module MainDesign(
 	end
 	
 	
+	initial begin
+		$readmemb("initram.bin", RAM);
+	end
+	
 	// ### BUS ###:
 	// Data/Address BUS to handle Infrared/Button/Digital Tube outputs as RAM entries:
 	reg [12:0] clearCounter; // Counter to index while RAM Cleaning and stop CPU clock
@@ -359,7 +363,7 @@ module MainDesign(
 		hsync,
 		vsync,
 		rgbOut,
-		~res,
+		res,
 		fontROMAddr,
 		fontROMOut,
 		addr_a,
