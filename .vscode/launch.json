@@ -4,19 +4,26 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+    
+        {
+            "type": "java",
+            "name": "Launch Assembler",
+            "request": "launch",
+            "mainClass": "Assembler.Assembler",
+            "args": [
+                "./Related/Test.asm",
+                "./Related/ROM.hex"
+            ]
+        },
         {
             "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}",
-            "args": ["Test.asm", "ROM.hex"]
-        },
-        {
-            "type": "java",
-            "name": "Launch Assembler",
-            "request": "launch",
-            "mainClass": "Assembler",
-            "projectName": "Project_6e945a44"
+            "args": [
+                "./Related/Test.asm",
+                "./Related/ROM.hex"
+            ]
         }
     ]
 }

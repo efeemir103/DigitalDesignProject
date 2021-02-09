@@ -157,7 +157,7 @@ public class Assembler {
 
         for(int i = 1; i < words.length; i++) {
             if(words[i].charAt(0) != 'R') {
-                if(words.length >= 4) {
+                if(words[i].length() >= 4) {
                     if(!words[i].substring(0, 3).equals("ACC")) {
                         immediate = true;
                         break;
@@ -205,6 +205,10 @@ public class Assembler {
                 operands[i] = operands[i].replaceAll("R", "");    
             } else if (operands[i].startsWith("ACC")) {
                 operands[i] = Integer.toString(Integer.parseInt(operands[i].replaceAll("ACC", "")) + 12);
+            } else if(operands[i].startsWith("0X")) {
+                operands[i] = Integer.toString(Integer.parseInt(operands[i].replaceAll("0X", ""), 16));
+            } else if(operands[i].startsWith("0B")) {
+                operands[i] = Integer.toString(Integer.parseInt(operands[i].replaceAll("0B", ""), 2));
             }
             
         }

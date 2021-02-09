@@ -44,8 +44,6 @@ module CPU(
 	
 	
 	// Create CPU operation group selectors:
-	wire [3:0] opEnable1;
-	
 	wire ALUEnable;
 	wire LD;
 	wire STR;
@@ -55,15 +53,8 @@ module CPU(
 		1'b1,
 		opSelect1,
 		enable,
-		opEnable1
+		{nextGroup, STR, LD, ALUEnable}
 	);
-	
-	assign ALUEnable = opEnable1[0];
-	assign LD = opEnable1[1];
-	assign STR = opEnable1[2];
-	assign nextGroup = opEnable1[3];
-	
-	wire [3:0] opEnable2;
 	
 	wire RES;
 	wire COMP;
@@ -74,13 +65,8 @@ module CPU(
 		nextGroup,
 		opSelect2,
 		enable,
-		opEnable2
+		{NOP, JUMP, COMP, RES}
 	);
-	
-	assign RES = opEnable2[0];
-	assign COMP = opEnable2[1];
-	assign JUMP = opEnable2[2];
-	assign NOP = opEnable2[3];
 	
 	
 	// Create inner CPU reset signal:
@@ -90,14 +76,14 @@ module CPU(
 	
 	
 	// ALU result will be connected to this wire:
-	wire [15:0] Y;
+	wire [15:0] ALUResult;
 	
 	
 	// Setting up Register File
 	wire [15:0] Rz0;
-	MUX2x16(Y, immediateValue, immediate, enable, Rz0);
-	wire [15:0] Rz; // Read register
-	MUX2x16(Rz0, dataIn, immediate, enable, Rz);
+	MUX2x16(ALUResult, immediateValue, immediate, enable, Rz0);
+	wire [15:0] Rz; // Read register value
+	MUX2x16(Rz0, dataIn, LD, regWr, Rz);
 	
 	wire [3:0] xSelected;
 	MUX2x4(x, z, STR, enable, xSelected);
@@ -125,7 +111,7 @@ module CPU(
 		Ry,
 		ALUOpcode,
 		ALUEnable,
-		Y,
+		ALUResult,
 		CPSRnow
 	);
 	
@@ -147,7 +133,7 @@ module CPU(
 	wire [4:0] CPSR;
 	Register5Bit(
 		CPSRnow,
-		clk,
+		~clk,
 		enable,
 		reset,
 		CPSR
