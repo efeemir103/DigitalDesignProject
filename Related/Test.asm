@@ -1,4 +1,5 @@
 LD R1, 0x0
-ADD R1, R1, 10
-STR R1, 0x1
+MOV R2, 0x1
+ADD R2, R2, R1
+STR R2, 0x1
 RES

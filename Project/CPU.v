@@ -94,7 +94,7 @@ module CPU(
 	RegisterFile(
 		regWr,
 		enable,
-		clk,
+		~clk,
 		reset,
 		z,
 		xSelected,

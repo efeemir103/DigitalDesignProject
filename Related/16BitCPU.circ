@@ -2585,12 +2585,6 @@ c0000041 c0000400 80000442 3
       <a name="label" val="Jump Addr"/>
       <a name="labelloc" val="north"/>
     </comp>
-    <comp lib="4" loc="(860,580)" name="Counter">
-      <a name="width" val="12"/>
-      <a name="max" val="0xfff"/>
-      <a name="trigger" val="falling"/>
-      <a name="label" val="Counter"/>
-    </comp>
     <comp lib="1" loc="(560,290)" name="AND Gate">
       <a name="size" val="30"/>
       <a name="inputs" val="2"/>
