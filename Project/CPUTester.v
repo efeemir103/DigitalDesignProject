@@ -24,7 +24,7 @@ module CPUTester(
 	
 	// Define CPU connections:
 	CPUv2(
-		~clkBtn,
+		~clk,
 		~res,
 		enable,
 		
@@ -50,7 +50,7 @@ module CPUTester(
 		$readmemh("ROM.hex", ROM);
 	end
 	
-	always @(negedge clkBtn)
+	always @(negedge clk)
 	begin
 		ROMdata <= ROMsel ? ROM[ROMaddr[7:0]] : 32'h00000000;
 	end
@@ -62,14 +62,16 @@ module CPUTester(
 	reg [15:0] RAM [63:0];
 	
 	integer i;
-	always @(negedge clkBtn or posedge RAMclr)
+	always @(negedge clk or posedge RAMclr)
 	begin
 		if(RAMclr == 1'b1)
 		begin
 			for(i = 0; i < 64; i = i + 1) 
 			begin
-				RAM[i] <= 16'b0000;
+				RAM[i] <= 16'h0000;
 			end
+			
+			hex4 <= 16'h0000;
 		end
 		else
 		begin

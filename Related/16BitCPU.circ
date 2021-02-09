@@ -502,8 +502,9 @@
       <a name="addrWidth" val="12"/>
       <a name="dataWidth" val="32"/>
       <a name="contents">addr/data: 12 32
-c0000041 c0000894 c00008d4 c0000114 c0000154 4000c440 40009100 40000450
-c3c00194 80000582 14407 8c00180b c03c0194 80000582 3
+c0000041 c0000894 3 c0000114 c0000154 4000c440 40009100 40000450
+c3c00194 80000582 14407 8c00180b c03c0194 80000582 3 0
+c0000041 c0000894 3
 </a>
     </comp>
     <comp lib="0" loc="(860,460)" name="Tunnel">
@@ -1933,6 +1934,7 @@ c3c00194 80000582 14407 8c00180b c03c0194 80000582 3
     </comp>
     <comp lib="2" loc="(1190,610)" name="Multiplexer">
       <a name="select" val="4"/>
+      <a name="disabled" val="0"/>
     </comp>
     <comp lib="0" loc="(910,1270)" name="Pin">
       <a name="facing" val="north"/>
