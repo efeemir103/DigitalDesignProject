@@ -234,9 +234,11 @@ public class Assembler {
 
                 binary += toBinary(registerIndex, 4);
             } else {
+                binary += "0000";
+                
                 int value = Integer.parseInt(operands[0]);
 
-                binary += toBinary(value, 16);
+                binary += toBinary(value, 12);
 
                 binary += "0000";
             }

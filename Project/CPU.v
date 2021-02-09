@@ -196,7 +196,7 @@ module CPU(
 		addrPC,
 		jumpPC,
 		enable,
-		clk,
+		~clk,
 		reset,
 		instructionAddr
 	);
