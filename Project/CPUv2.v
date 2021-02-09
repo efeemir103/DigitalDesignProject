@@ -1,11 +1,11 @@
-module CPU(
+module CPUv2(
 	input clk,
 	input res,
 	input enable,
 	
 	// Instruction fetch pins (ROM)
-	output [11:0] instructionAddr,
-	input [31:0] instruction,
+	output reg [11:0] instructionAddr,
+	input [31:0] instructionNow,
 	output selInstruction,
 	
 	// Data load/str pins (RAM)
@@ -16,6 +16,8 @@ module CPU(
 	output ldData,
 	output clrData
 );
+
+	reg [31:0] instruction;
 
 	// DECODE THE RECEIVED INSTRUCTION:
 	wire [1:0] opSelect1;
@@ -129,28 +131,6 @@ module CPU(
 	);
 	
 	
-	// Setting up CPSR:
-	wire [4:0] CPSR;
-	Register5Bit(
-		CPSRnow,
-		~clk,
-		enable,
-		reset,
-		CPSR
-	);
-	
-	
-	// Setting up Comparison registers:
-	wire [5:0] regCOMP;
-	Register6Bit(
-		{lt, lt | eq, ~eq, eq, eq | gt, gt},
-		~clk,
-		COMP,
-		reset,
-		regCOMP
-	);
-	
-	
 	// Setting up data (RAM) connections:
 	assign selData = LD | STR;
 	MUX2x12(Ry[11:0], immediateAddr, immediate, selData, dataAddr);
@@ -159,6 +139,9 @@ module CPU(
 	assign clrData = reset;
 	
 	assign dataOut = Rx;
+	
+	reg [4:0] CPSR;
+	reg [5:0] regCOMP;
 	
 	// Selecting jump conditions:
 	wire jumpPC;
@@ -192,6 +175,7 @@ module CPU(
 	MUX2x12(Ry[11:0], immediateAddr, immediate, JUMP, addrPC);
 	
 	
+	/*
 	ProgramCounter(
 		addrPC,
 		jumpPC,
@@ -200,9 +184,47 @@ module CPU(
 		reset,
 		instructionAddr
 	);
+	*/
 	
 	
 	// Setting up instruction (ROM) connections:
 	assign selInstruction = enable;
+	
+	
+	// Program Counter and Status/Comparison Registers:
+	reg jumpFlag;
+	reg [11:0] addr;
+	initial begin
+		jumpFlag <= 1'b0;
+		addr <= 12'h000;
+	end
+	
+	always @(posedge clk or posedge reset)
+	begin
+		if(reset)
+		begin
+			instruction <= 32'h00000000;
+			instructionAddr <= 12'h000;
+			jumpFlag <= 1'b0;
+			addr <= 12'h000;
+		end
+		else
+		begin
+			instruction <= instructionNow; // Fetch current instruction
+			
+			CPSR <= ALUEnable ? CPSRnow : CPSR; // Current Program Status Register
+			
+			regCOMP <= COMP ? {lt, lt | eq, ~eq, eq, eq | gt, gt} : regCOMP; // Comparison Registers
+			
+			if(jumpPC)
+			begin
+				instructionAddr <= enable ? instructionAddr + 12'h001 : instructionAddr;
+			end
+			else
+			begin
+				instructionAddr <= enable ? addrPC : instructionAddr;
+			end
+		end
+	end
 
 endmodule

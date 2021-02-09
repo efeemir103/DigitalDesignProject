@@ -1,5 +1,6 @@
 module CPUTester(
 	input clk,
+	input clkBtn,
 	input res,
 	input enable,
 	input [1:0] btn,
@@ -22,8 +23,8 @@ module CPUTester(
 	wire RAMclr;
 	
 	// Define CPU connections:
-	CPU(
-		~clk,
+	CPUv2(
+		~clkBtn,
 		~res,
 		enable,
 		
@@ -49,7 +50,7 @@ module CPUTester(
 		$readmemh("ROM.hex", ROM);
 	end
 	
-	always @(negedge clk)
+	always @(negedge clkBtn)
 	begin
 		ROMdata <= ROMsel ? ROM[ROMaddr[7:0]] : 32'h00000000;
 	end
@@ -61,7 +62,7 @@ module CPUTester(
 	reg [15:0] RAM [63:0];
 	
 	integer i;
-	always @(negedge clk or posedge RAMclr)
+	always @(negedge clkBtn or posedge RAMclr)
 	begin
 		if(RAMclr == 1'b1)
 		begin
@@ -107,7 +108,6 @@ module CPUTester(
 	end
 	
 	
-	// Now bind digital tube to RAM:
 	reg clock1KHz;
 	reg [15:0] pulseCount;
 	

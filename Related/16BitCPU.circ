@@ -502,7 +502,8 @@
       <a name="addrWidth" val="12"/>
       <a name="dataWidth" val="32"/>
       <a name="contents">addr/data: 12 32
-c0000041 c0000400 80000442 3
+c0000041 c0000894 c00008d4 c0000114 c0000154 4000c440 40009100 40000450
+c3c00194 80000582 14407 8c00180b c03c0194 80000582 3
 </a>
     </comp>
     <comp lib="0" loc="(860,460)" name="Tunnel">

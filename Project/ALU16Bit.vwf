@@ -21,6 +21,7 @@ after 2500 simTimestamp
 run -all
 quit -f
 
+
 </modelsim_script>
 <modelsim_script_timing>onerror {exit -code 1}
 vlib work
@@ -39,6 +40,7 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
+
 
 </modelsim_script_timing>
 <hdl_lang>verilog</hdl_lang>
@@ -1243,10 +1245,14 @@ TRANSITION_LIST("opcode[3]")
 		REPEAT = 1;
 		NODE
 		{
-			REPEAT = 3;
+			REPEAT = 1;
 			LEVEL 0 FOR 160.0;
 			LEVEL 1 FOR 160.0;
 		}
+		LEVEL 0 FOR 160.0;
+		LEVEL 1 FOR 160.0;
+		LEVEL 0 FOR 160.0;
+		LEVEL 1 FOR 160.0;
 		LEVEL 0 FOR 40.0;
 	}
 }
@@ -1258,7 +1264,15 @@ TRANSITION_LIST("opcode[2]")
 		REPEAT = 1;
 		NODE
 		{
-			REPEAT = 6;
+			REPEAT = 3;
+			LEVEL 0 FOR 80.0;
+			LEVEL 1 FOR 80.0;
+		}
+		LEVEL 0 FOR 80.0;
+		LEVEL 1 FOR 80.0;
+		NODE
+		{
+			REPEAT = 2;
 			LEVEL 0 FOR 80.0;
 			LEVEL 1 FOR 80.0;
 		}
@@ -1273,7 +1287,17 @@ TRANSITION_LIST("opcode[1]")
 		REPEAT = 1;
 		NODE
 		{
-			REPEAT = 12;
+			REPEAT = 6;
+			LEVEL 0 FOR 40.0;
+			LEVEL 1 FOR 40.0;
+		}
+		LEVEL 0 FOR 40.0;
+		LEVEL 1 FOR 40.0;
+		LEVEL 0 FOR 40.0;
+		LEVEL 1 FOR 40.0;
+		NODE
+		{
+			REPEAT = 4;
 			LEVEL 0 FOR 40.0;
 			LEVEL 1 FOR 40.0;
 		}
@@ -1288,7 +1312,19 @@ TRANSITION_LIST("opcode[0]")
 		REPEAT = 1;
 		NODE
 		{
-			REPEAT = 25;
+			REPEAT = 12;
+			LEVEL 0 FOR 20.0;
+			LEVEL 1 FOR 20.0;
+		}
+		LEVEL 0 FOR 20.0;
+		LEVEL 1 FOR 20.0;
+		LEVEL 0 FOR 20.0;
+		LEVEL 1 FOR 20.0;
+		LEVEL 0 FOR 20.0;
+		LEVEL 1 FOR 20.0;
+		NODE
+		{
+			REPEAT = 10;
 			LEVEL 0 FOR 20.0;
 			LEVEL 1 FOR 20.0;
 		}
