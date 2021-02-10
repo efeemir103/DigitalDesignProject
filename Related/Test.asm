@@ -1,10 +1,13 @@
-; Load button data:
+; Load Button data:
 
-MOV R3, 2
-LD R2, 111
+;LD R2, 111
+;STR R2, 110
 
-ADD R2, R2, R3
+MOV R2, 0x0FFF
+STR R2, 120
 STR R2, 110
+LD R3, 120
+;STR R3, 110
 
 ; H
 MOV R0, 0b0100100011101000
@@ -54,4 +57,5 @@ STR R1, 0xA
 CMP R0, R0
 JE 0
 
+; Return clearing RAM
 ;RES

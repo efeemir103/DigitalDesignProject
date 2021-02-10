@@ -83,10 +83,11 @@ module MainDesign(
 		end 
 	end
 	
-	
+	/*
 	initial begin
 		$readmemb("initram.bin", RAM);
 	end
+	*/
 	
 	// ### BUS ###:
 	// Data/Address BUS to handle Infrared/Button/Digital Tube outputs as RAM entries:
@@ -118,9 +119,11 @@ module MainDesign(
 		end
 		else if(clrRAM)
 		begin
+			/*
 			passToRAM <= 1'b0;
 			clearCounter <= 13'd0;
 			clearFlag <= 1'b1;
+			*/
 		end
 		else if(~selBUS)
 		begin
@@ -150,7 +153,7 @@ module MainDesign(
 			// Buttons binded to RAM address 111
 			if(loadBUS)
 			begin
-				dataBUSOut <= {12'h000, btns};
+				dataBUSOut <= {12'h000, ~btns};
 			end
 		end
 		else if(addrBUS == 12'd112)
@@ -177,12 +180,12 @@ module MainDesign(
 			
 			if(loadBUS)
 			begin
-				weRAM <= 1'b0;
-				dataBUSOut <= q_b;
+				weRAM <= 1'b1;
 			end
 			else
 			begin
-				weRAM <= 1'b1;
+				dataBUSOut <= q_b;
+				weRAM <= 1'b0;
 			end
 		end
 	end
@@ -195,13 +198,10 @@ module MainDesign(
 	
 	// ### CPU ###:
 	wire dummy;
-	wire cpuCLK;
-	
-	assign cpuCLK = ~clearFlag & clk;
 	
 	CPUv2(
-		cpuCLK,
-		~res,
+		~clearFlag & clk,
+		clearFlag | ~res,
 		enable,
 		
 		// Instruction fetch pins (ROM)
@@ -307,7 +307,7 @@ module MainDesign(
 	end
 	
  
-	assign seg[7] = 1'b1;
+	assign seg[7] = ir;
 	assign seg[6] = ~hexEncoding[6];
 	assign seg[5] = ~hexEncoding[5];
 	assign seg[4] = ~hexEncoding[4];

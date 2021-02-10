@@ -79,7 +79,7 @@ module CPUTester(
 			begin
 				if(RAMld)
 				begin
-					if(RAMaddr == 12'd0)
+					if(RAMaddr == 12'd111)
 					begin
 						// Bind buttons to RAM:
 						RAMdataOut <= {14'b00000000000000, ~btn};
@@ -91,7 +91,7 @@ module CPUTester(
 				end
 				else
 				begin
-					if(RAMaddr == 12'd1)
+					if(RAMaddr == 12'd110)
 					begin
 						// Bind RAM[1] as digital tube:
 						hex4 <= RAMdataIn;
