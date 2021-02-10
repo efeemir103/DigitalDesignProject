@@ -266,7 +266,14 @@ module CPUv2(
 			end
 			else
 			begin
-				instructionAddr <= enable ? instructionAddr + 12'h001 : instructionAddr;
+				if(instructionAddr == 12'hFFF)
+				begin
+					instructionAddr <= 12'h000;
+				end
+				else
+				begin
+					instructionAddr <= enable ? instructionAddr + 12'h001 : instructionAddr;
+				end
 			end
 		end
 	end

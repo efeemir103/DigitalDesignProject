@@ -180,12 +180,13 @@ module MainDesign(
 			
 			if(loadBUS)
 			begin
-				weRAM <= 1'b1;
+				weRAM <= 1'b0;
+				
+				dataBUSOut <= q_b;
 			end
 			else
 			begin
-				dataBUSOut <= q_b;
-				weRAM <= 1'b0;
+				weRAM <= 1'b1;
 			end
 		end
 	end
@@ -210,7 +211,7 @@ module MainDesign(
 		dummy, // Ignore ROM chip select
 		
 		// Data load/str pins (RAM)
-		addrBUS,
+		addrBUS, // RAM address
 		dataBUSOut, // RAM Port B Out
 		dataBUSIn, // RAM Port B In
 		selBUS, // Chip select for BUS
