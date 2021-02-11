@@ -1,4 +1,5 @@
-f = open("font_8bit.bin","r") # 8-bit input data
+fname = input()
+f = open(fname,"r") # 8-bit input data
 fileContents = f.read()
 fileLen = len(fileContents)
 outFile = open("glyph.bin", "w") # 1-bit output data
