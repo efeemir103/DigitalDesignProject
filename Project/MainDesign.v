@@ -31,9 +31,11 @@ module MainDesign(
 	reg [31:0] ROM [4095:0];
 	reg [31:0] ROMdata;
 	
+	/*
 	initial begin
 		$readmemh("ROM.hex", ROM);
 	end
+	*/
 	
 	always @(posedge clk)
 	begin
@@ -83,11 +85,9 @@ module MainDesign(
 		end 
 	end
 	
-	/*
 	initial begin
 		$readmemb("initram.bin", RAM);
 	end
-	*/
 	
 	// ### BUS ###:
 	// Data/Address BUS to handle Infrared/Button/Digital Tube outputs as RAM entries:
