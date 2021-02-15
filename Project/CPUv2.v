@@ -76,7 +76,7 @@ module CPUv2(
 	// Create inner CPU reset signal:
 	wire reset;
 	
-	assign reset = resIn | RES;
+	assign reset = resIn;
 	
 	
 	// ALU result will be connected to this wire:
@@ -96,10 +96,10 @@ module CPUv2(
 	wire [15:0] Ry; // B input for ALU/Comparator
 	
 	RegisterFile(
-		regWr,
+		regWr & (ALUEnable | LD),
 		enable,
 		~clk,
-		reset,
+		1'b0, // RESET
 		z,
 		xSelected,
 		y,
@@ -199,7 +199,7 @@ module CPUv2(
 		CPSR <= 5'b000000;
 	end
 	
-	always @(posedge ALUEnable or posedge reset)
+	always @(negedge clk)
 	begin
 		if(reset)
 		begin
@@ -207,7 +207,7 @@ module CPUv2(
 		end
 		else
 		begin
-			CPSR <= enable ? CPSRnow : 5'b00000;
+			CPSR <= ALUEnable ? CPSRnow : CPSR;
 		end
 	end
 	
@@ -217,7 +217,7 @@ module CPUv2(
 		regCOMP <= 6'b00000;
 	end
 	
-	always @(posedge COMP or posedge reset)
+	always @(negedge clk)
 	begin
 		if(reset)
 		begin
@@ -225,53 +225,36 @@ module CPUv2(
 		end
 		else
 		begin
-			regCOMP <= enable ? {lt, lt | eq, ~eq, eq, eq | gt, gt} : 6'b000000;
+			regCOMP <= COMP ? {lt, lt | eq, ~eq, eq, eq | gt, gt} : regCOMP;
 		end
 	end
 	
 	// Program Counter (Instruction Fetching Mechanism)
-	reg resetFlag;
-	reg jumpFlag;
 	initial begin
 		instruction <= 32'h00000000;
 		instructionAddr <= 12'h000;
-		resetFlag <= 1'b0;
-		jumpFlag <= 1'b0;
 	end
-	always @(posedge clk or posedge reset or posedge jumpPC)
+	always @(posedge clk)
 	begin
 		instruction <= instructionNow; // Fetch current instruction
 		
 		if(reset)
 		begin
 			instructionAddr <= 12'h000;
-			resetFlag <= 1'b1;
 		end
 		else if(jumpPC)
 		begin
 			instructionAddr <= enable ? addrPC : instructionAddr;
-			jumpFlag <= 1'b1;
 		end
 		else
 		begin
-			if(resetFlag)
+			if(instructionAddr == 12'hFFF)
 			begin
-				resetFlag <= 1'b0; // Wait one cycle to load first instruction
-			end
-			else if(jumpFlag)
-			begin
-				jumpFlag <= 1'b0; // Wait one cycle to load next instruction
+				instructionAddr <= 12'h000;
 			end
 			else
 			begin
-				if(instructionAddr == 12'hFFF)
-				begin
-					instructionAddr <= 12'h000;
-				end
-				else
-				begin
-					instructionAddr <= enable ? instructionAddr + 12'h001 : instructionAddr;
-				end
+				instructionAddr <= enable ? instructionAddr + 12'h001 : instructionAddr;
 			end
 		end
 	end

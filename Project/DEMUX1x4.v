@@ -8,10 +8,10 @@ module DEMUX1x4(
 	wire [1:0] w0;
 	wire [3:0] w1;
 	
-	DEMUX1x2(data, sel[1], 1'b1, w0);
+	DEMUX1x2(data, sel[1], en, w0);
 	
-	DEMUX1x2(w0[0], sel[0], 1'b1, w1[1:0]);
-	DEMUX1x2(w0[1], sel[0], 1'b1, w1[3:2]);
+	DEMUX1x2(w0[0], sel[0], en, w1[1:0]);
+	DEMUX1x2(w0[1], sel[0], en, w1[3:2]);
 	
 	assign out = en ? w1 : 4'b0000;
 

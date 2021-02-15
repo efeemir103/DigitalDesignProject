@@ -8,6 +8,40 @@ module CPUTester(
 	output [7:0] seg
 );
 
+	reg [25:0] bigCounter;
+	reg clockSlow;
+
+	initial begin
+		bigCounter <= 26'd0;
+		clockSlow <= 1'b0;
+	end
+	
+	// Slow clock
+	always @(negedge clk)
+	begin
+		if(~res)
+		begin
+			clockSlow <= 1'b0;
+			bigCounter <= 26'd0;
+		end
+		
+		// 50000000 clock cycles are needed to count for 1KHz clock (50000000 division):
+		if(bigCounter == 26'd50000000)
+		begin
+			bigCounter <= 26'd0;
+			clockSlow <= 1'b0;
+		end
+		else 
+		begin
+			if(bigCounter == 16'd25000000)
+			begin
+				clockSlow <= 1'b1;
+			end
+			
+			bigCounter <= bigCounter + 16'd1;
+		end
+	end
+
 	// Block ROM:
 	wire [11:0] ROMaddr;
 	reg [31:0] ROMdata;
@@ -24,7 +58,7 @@ module CPUTester(
 	
 	// Define CPU connections:
 	CPUv2(
-		~clkBtn,
+		clockSlow,
 		~res,
 		enable,
 		

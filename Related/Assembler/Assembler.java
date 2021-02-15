@@ -199,7 +199,6 @@ public class Assembler {
         String binary = "";
         
         String instruction = instructions.get(insIndex);
-        System.out.println(instruction);
 
         for(int i = 0; i < operands.length; i++) {
             if(operands[i].startsWith("R")) {
