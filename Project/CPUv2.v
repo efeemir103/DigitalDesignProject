@@ -232,18 +232,16 @@ module CPUv2(
 	// Program Counter (Instruction Fetching Mechanism)
 	reg resetFlag;
 	reg jumpFlag;
-	
 	initial begin
 		instruction <= 32'h00000000;
 		instructionAddr <= 12'h000;
 		resetFlag <= 1'b0;
 		jumpFlag <= 1'b0;
 	end
-	
 	always @(posedge clk or posedge reset or posedge jumpPC)
 	begin
 		instruction <= instructionNow; // Fetch current instruction
-
+		
 		if(reset)
 		begin
 			instructionAddr <= 12'h000;

@@ -20,6 +20,7 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
+
 </modelsim_script>
 <modelsim_script_timing>onerror {exit -code 1}
 vlib work
@@ -38,6 +39,7 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
+
 </modelsim_script_timing>
 <hdl_lang>verilog</hdl_lang>
 </simulation_settings>*/
@@ -1084,7 +1086,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "B";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 17;
 	TREE_LEVEL = 0;
 	CHILDREN = 18, 19, 20, 21;
@@ -1094,7 +1096,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "B[3]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 18;
 	TREE_LEVEL = 1;
 	PARENT = 17;
@@ -1104,7 +1106,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "B[2]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 19;
 	TREE_LEVEL = 1;
 	PARENT = 17;
@@ -1114,7 +1116,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "B[1]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 20;
 	TREE_LEVEL = 1;
 	PARENT = 17;
@@ -1124,7 +1126,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "B[0]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 21;
 	TREE_LEVEL = 1;
 	PARENT = 17;

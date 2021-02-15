@@ -199,6 +199,7 @@ public class Assembler {
         String binary = "";
         
         String instruction = instructions.get(insIndex);
+        System.out.println(instruction);
 
         for(int i = 0; i < operands.length; i++) {
             if(operands[i].startsWith("R")) {
@@ -244,7 +245,7 @@ public class Assembler {
             }
         } else {
             binary += "00000000";
-            if(instruction.equals("INC") || instruction.equals("DEC") || instruction.equals("NOT") || instruction.equals("MOV")) {
+            if(instruction.equals("INC") || instruction.equals("DEC") || instruction.equals("NEG") || instruction.equals("NOT") || instruction.equals("MOV")) {
                 binary += "0000";
 
                 int xRegisterIndex = Integer.parseInt(operands[1]);

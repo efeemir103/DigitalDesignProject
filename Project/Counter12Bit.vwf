@@ -20,6 +20,7 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
+
 </modelsim_script>
 <modelsim_script_timing>onerror {exit -code 1}
 vlib work
@@ -38,6 +39,7 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
+
 </modelsim_script_timing>
 <hdl_lang>verilog</hdl_lang>
 </simulation_settings>*/
@@ -680,9 +682,9 @@ TRANSITION_LIST("en")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 480.0;
-		LEVEL 0 FOR 160.0;
-		LEVEL 1 FOR 360.0;
+		LEVEL 1 FOR 230.0;
+		LEVEL 0 FOR 40.0;
+		LEVEL 1 FOR 730.0;
 	}
 }
 
@@ -691,11 +693,11 @@ TRANSITION_LIST("load")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 330.0;
+		LEVEL 0 FOR 70.0;
 		LEVEL 1 FOR 20.0;
 		LEVEL 0 FOR 80.0;
 		LEVEL 1 FOR 20.0;
-		LEVEL 0 FOR 550.0;
+		LEVEL 0 FOR 810.0;
 	}
 }
 
@@ -704,9 +706,9 @@ TRANSITION_LIST("reset")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 80.0;
+		LEVEL 0 FOR 20.0;
 		LEVEL 1 FOR 20.0;
-		LEVEL 0 FOR 900.0;
+		LEVEL 0 FOR 960.0;
 	}
 }
 
@@ -714,7 +716,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "D";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 0;
 	TREE_LEVEL = 0;
 	CHILDREN = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12;
@@ -724,7 +726,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "D[11]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 1;
 	TREE_LEVEL = 1;
 	PARENT = 0;
@@ -734,7 +736,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "D[10]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 2;
 	TREE_LEVEL = 1;
 	PARENT = 0;
@@ -744,7 +746,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "D[9]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 3;
 	TREE_LEVEL = 1;
 	PARENT = 0;
@@ -754,7 +756,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "D[8]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 4;
 	TREE_LEVEL = 1;
 	PARENT = 0;
@@ -764,7 +766,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "D[7]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 5;
 	TREE_LEVEL = 1;
 	PARENT = 0;
@@ -774,7 +776,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "D[6]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 6;
 	TREE_LEVEL = 1;
 	PARENT = 0;
@@ -784,7 +786,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "D[5]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 7;
 	TREE_LEVEL = 1;
 	PARENT = 0;
@@ -794,7 +796,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "D[4]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 8;
 	TREE_LEVEL = 1;
 	PARENT = 0;
@@ -804,7 +806,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "D[3]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 9;
 	TREE_LEVEL = 1;
 	PARENT = 0;
@@ -814,7 +816,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "D[2]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 10;
 	TREE_LEVEL = 1;
 	PARENT = 0;
@@ -824,7 +826,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "D[1]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 11;
 	TREE_LEVEL = 1;
 	PARENT = 0;
@@ -834,7 +836,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "D[0]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 12;
 	TREE_LEVEL = 1;
 	PARENT = 0;
@@ -880,7 +882,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "Q";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 17;
 	TREE_LEVEL = 0;
 	CHILDREN = 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29;
@@ -890,7 +892,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "Q[11]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 18;
 	TREE_LEVEL = 1;
 	PARENT = 17;
@@ -900,7 +902,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "Q[10]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 19;
 	TREE_LEVEL = 1;
 	PARENT = 17;
@@ -910,7 +912,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "Q[9]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 20;
 	TREE_LEVEL = 1;
 	PARENT = 17;
@@ -920,7 +922,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "Q[8]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 21;
 	TREE_LEVEL = 1;
 	PARENT = 17;
@@ -930,7 +932,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "Q[7]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 22;
 	TREE_LEVEL = 1;
 	PARENT = 17;
@@ -940,7 +942,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "Q[6]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 23;
 	TREE_LEVEL = 1;
 	PARENT = 17;
@@ -950,7 +952,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "Q[5]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 24;
 	TREE_LEVEL = 1;
 	PARENT = 17;
@@ -960,7 +962,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "Q[4]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 25;
 	TREE_LEVEL = 1;
 	PARENT = 17;
@@ -970,7 +972,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "Q[3]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 26;
 	TREE_LEVEL = 1;
 	PARENT = 17;
@@ -980,7 +982,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "Q[2]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 27;
 	TREE_LEVEL = 1;
 	PARENT = 17;
@@ -990,7 +992,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "Q[1]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 28;
 	TREE_LEVEL = 1;
 	PARENT = 17;
@@ -1000,7 +1002,7 @@ DISPLAY_LINE
 {
 	CHANNEL = "Q[0]";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
+	RADIX = Unsigned;
 	TREE_INDEX = 29;
 	TREE_LEVEL = 1;
 	PARENT = 17;

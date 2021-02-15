@@ -24,7 +24,7 @@ module CPUTester(
 	
 	// Define CPU connections:
 	CPUv2(
-		~clk,
+		~clkBtn,
 		~res,
 		enable,
 		
@@ -93,7 +93,7 @@ module CPUTester(
 				begin
 					if(RAMaddr == 12'd110)
 					begin
-						// Bind RAM[1] as digital tube:
+						// Bind RAM[110] as digital tube:
 						hex4 <= RAMdataIn;
 					end
 					else

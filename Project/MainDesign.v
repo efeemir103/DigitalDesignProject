@@ -201,8 +201,8 @@ module MainDesign(
 	wire dummy;
 	
 	CPUv2(
-		~clearFlag & clk,
-		clearFlag | ~res,
+		btns[3],
+		~res,
 		enable,
 		
 		// Instruction fetch pins (ROM)
